@@ -22,7 +22,7 @@ class CustomDialog(private val context: Context, item: Item) {
             this.item = item
             btnEdit.visibility = View.INVISIBLE
 
-            if(item.user == Firebase.auth.currentUser.toString()) {
+            if(item.user == Firebase.auth.currentUser?.email.toString()) {
                 btnEdit.visibility = View.VISIBLE
             }
 
@@ -37,6 +37,7 @@ class CustomDialog(private val context: Context, item: Item) {
     private fun initDialog() = with(dialog) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(mBinding.root)
+        setCancelable(true)
         window?.setLayout(width, height)
     }
 

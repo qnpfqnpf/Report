@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.report.databinding.ItemItemBinding
 
 class ItemRecyclerViewAdapter : RecyclerView.Adapter<ItemRecyclerViewAdapter.ItemViewHolder>() {
-    private var mList: ArrayList<Item> = ArrayList()
+    private var mList: List<Item> = emptyList()
 
-    fun submitList(list: ArrayList<Item>) {
+    fun submitList(list: List<Item>) {
         mList = list
         notifyDataSetChanged()
     }

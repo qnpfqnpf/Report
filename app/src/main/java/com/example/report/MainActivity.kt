@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     private val mBinding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val adapter = ItemRecyclerViewAdapter()
+    private val fireStore = FiresStore()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,13 +24,38 @@ class MainActivity : AppCompatActivity() {
                 Intent(this, LoginActivity::class.java))
         }
 
-        submitList()
+        fireStore.itemList.observe(this) { list ->
+            adapter.submitList(list)
+        }
 
         mBinding.apply {
             btnLogout.setOnClickListener {
                 Firebase.auth.signOut()
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java))
             }
+
+            btnAdd.setOnClickListener {
+                CustomEditDialog(this@MainActivity).show()
+            }
+
+            btnSearch.setOnClickListener {
+                when {
+                    editPrice.text.isNotBlank() -> {
+                        submitList { item: Item ->  item.price <= editPrice.text.toString().toLong()}
+                    }
+                    chkSold.isChecked -> {
+                        submitList { item: Item ->  item.isSold }
+                    }
+                    else -> {
+                        submitList { true }
+                    }
+                }
+            }
+
+            btnMyList.setOnClickListener {
+                submitList { item: Item -> item.user == Firebase.auth.currentUser?.email.toString() }
+            }
+
             viewItem.adapter = adapter
             viewItem.layoutManager = LinearLayoutManager(baseContext, RecyclerView.VERTICAL, false)
             val dividerItemDecoration = DividerItemDecoration(viewItem.context, LinearLayoutManager.VERTICAL)
@@ -37,12 +63,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun submitList() {
-        //TODO: Get From FireStore
-        val list = ArrayList<Item>()
-        repeat(10) {
-            list += Item("${it}", "${it}", "${it}", "${it}", it % 2 == 0)
-        }
-        adapter.submitList(list)
+    private fun submitList(filter: (Item) -> Boolean) {
+        fireStore.readData(filter)
     }
 }

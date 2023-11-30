@@ -15,45 +15,58 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/txt_title"
+            android:id="@+id/edit_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:text="@{item.title}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/edit_price"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="제목" />
 
+
         <EditText
-            android:id="@+id/txt_content"
+            android:id="@+id/edit_content"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="10dp"
-            app:layout_constraintBottom_toTopOf="@id/btn_edit"
+            android:text="@{item.content}"
+            app:layout_constraintBottom_toTopOf="@id/btn_confirm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@{item.content}"
-            app:layout_constraintTop_toBottomOf="@id/txt_title"
+            app:layout_constraintTop_toBottomOf="@id/edit_title"
             tools:text="내용" />
 
         <EditText
-            android:id="@+id/txt_price"
+            android:id="@+id/edit_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            app:layout_constraintBottom_toBottomOf="@id/txt_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/txt_title"
-            app:layout_constraintTop_toTopOf="@id/txt_title"
-            android:text="@{item.price}"
+            android:inputType="number"
+            android:text="@{String.valueOf(item.price)}"
+            app:layout_constraintBottom_toBottomOf="@id/edit_title"
+            app:layout_constraintEnd_toStartOf="@id/chk_sold"
+            app:layout_constraintStart_toEndOf="@id/edit_title"
+            app:layout_constraintTop_toTopOf="@id/edit_title"
             tools:text="가격" />
 
+        <CheckBox
+            android:id="@+id/chk_sold"
+            android:text="판매 여부"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/edit_price"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Button
-            android:id="@+id/btn_edit"
+            android:id="@+id/btn_confirm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="확인"
             android:layout_margin="10dp"
+            android:text="확인"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
