@@ -19,6 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            app:layout_constraintEnd_toStartOf="@id/txt_price"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:text="@{item.title}"
@@ -45,7 +46,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/txt_title"
             app:layout_constraintTop_toTopOf="@id/txt_title"
-            android:text="@{item.price}"
+            android:text="@{String.valueOf(item.price)}"
             tools:text="가격" />
 
         <Button
